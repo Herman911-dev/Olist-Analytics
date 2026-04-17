@@ -1,4 +1,4 @@
--- Nettoyage des tables (ordre inverse des clés étrangères)
+-- Nettoyage des tables 
 DROP TABLE IF EXISTS order_reviews;
 DROP TABLE IF EXISTS order_payments;
 DROP TABLE IF EXISTS order_items;
@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS sellers;
 DROP TABLE IF EXISTS customers;
 DROP TABLE IF EXISTS geolocation;
+DROP TABLE IF EXISTS product_category_name_translation;
 
 -- 1. Table Géolocalisation
 CREATE TABLE geolocation (
@@ -80,13 +81,19 @@ CREATE TABLE order_payments (
     payment_value DECIMAL
 );
 
--- 8. Table Avis (Reviews)
+-- 8. Table Avis (Reviews) 
 CREATE TABLE order_reviews (
-    review_id VARCHAR(50) PRIMARY KEY,
+    review_id VARCHAR(50), 
     order_id VARCHAR(50) REFERENCES orders(order_id),
     review_score INT,
     review_comment_title TEXT,
     review_comment_message TEXT,
     review_creation_date TIMESTAMP,
     review_answer_timestamp TIMESTAMP
+);
+
+-- 9. Table de traduction des catégories
+CREATE TABLE product_category_name_translation (
+    product_category_name VARCHAR(100),
+    product_category_name_english VARCHAR(100)
 );
